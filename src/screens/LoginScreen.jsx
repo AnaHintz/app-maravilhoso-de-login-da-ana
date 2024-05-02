@@ -1,37 +1,64 @@
-import { View } from "react-native";
-import { styles } from "../config/styles";
-import { useState } from "react";
+import React, { useState } from "react";
+import { View, Image } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
+import { styles } from "../config/styles";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [error, setError] = useState(""); 
 
-  // realizar de lógica de login
-  // verificando se o email foi digitado
-  // verificando se a senha foi digitada
+  const handleLogin = () => {
+  
+    if (!email.trim() || !senha.trim()) {
+      setError("Por favor, preencha todos os campos.");
+
+      return;
+    }
+
+
+     
+     
+      
+    else {
+
+      navigation.navigate("HomeScreen");
+      setError("Credenciais inválidas. Por favor, tente novamente.");
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.container_inner}>
-        <Text>Página de Login!</Text>
-        <TextInput
+
+  <Image 
+     source={require("../../assets/MicrosoftTeams-image.png")} 
+     style={{ width: 200, height: 200 }}/>
+        <Text variant="titleLarge">Página de Login!</Text>
+        {/* Exibir mensagem de erro, se houver */}
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}        <TextInput
+         activeUnderlineColor="hotpink"
           label={"Email"}
           placeholder={"Digite seu e-mail"}
           value={email}
           onChangeText={setEmail}
         />
         <TextInput
+        
+   activeUnderlineColor="hotpink"
           label={"Senha"}
           placeholder={"Digite sua Senha"}
           value={senha}
           onChangeText={setSenha}
+          style={styles.esp}
           secureTextEntry // Para esconder a senha
         />
-        <Button mode="contained">Login</Button>
-        <Button
-            onPress={()=>navigation.navigate("RegisterScreen")}
-        >Fazer Cadastro</Button>
+        <Button mode="contained" onPress={handleLogin} buttonColor="hotpink">
+          Login
+        </Button>
+        <Button onPress={() => navigation.navigate("RegisterScreen")} textColor="hotpink">
+          Fazer Cadastro
+        </Button>
       </View>
     </View>
   );
