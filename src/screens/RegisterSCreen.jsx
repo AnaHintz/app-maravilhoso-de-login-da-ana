@@ -16,7 +16,7 @@ export default function RegisterScreen({ navigation }) {
       return;
     }
 
-    // Verificar se as senhas são idênticas
+    // Verificar se as senhas são iguais
     else if (senha !== repetirSenha) {
       setError("As senhas não estão iguais. Por favor, tente novamente.");
       return;
